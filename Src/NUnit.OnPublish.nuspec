@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>NUnit.OnPublish</id>
+    <version>1.0.0.0</version>
+    <title>Run NUnit tests on Publish</title>
+    <authors>Brian Zell</authors>
+    <owners>Brian Zell</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Adds a publish target to a project to run NUnit.</description>
+    <releaseNotes />
+    <copyright />
+    <language>en-US</language>
+    <tags>Test NUnit Publish</tags>
+    <developmentDependency>true</developmentDependency>
+    <dependencies>
+      <group>
+        <dependency id="NUnit.Runners" version="2.6.3" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

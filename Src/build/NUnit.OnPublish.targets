@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <NugetPackageDirectory>$(MSBuildThisFileDirectory)..\</NugetPackageDirectory>
+    <NUnitRunnerPath>$(NugetPackageDirectory)..\NUnit.Runners.2.6.*\tools\nunit-console-x86.exe</NUnitRunnerPath>
+  </PropertyGroup>
+  
+  <Target Name="Publish" DependsOnTargets="Build;CopyTeamCityNUnitAddIns">
+    <ItemGroup>
+      <NUnitRunner Include="$(NUnitRunnerPath)"/>
+      <TestAssembly Include="$(OutputPath)\$(AssemblyName).dll"/>
+    </ItemGroup>
+    
+    <Exec Command="@(NUnitRunner -> '&quot;%(FullPath)&quot;',' ') @(TestAssembly -> '&quot;%(FullPath)&quot;',' ') /framework=4.0 /nologo" />
+  </Target>
+  <Target Name="CopyTeamCityNUnitAddIns" Condition="'$(teamcity_dotnet_nunitaddin)' != ''">
+    <ItemGroup>
+      <NUnitAddinFiles Include="$(teamcity_dotnet_nunitaddin)-2.6.3.*" />
+      <NUnitRunner Include="$(NUnitRunnerPath)"/>
+    </ItemGroup>
+    
+    <MakeDir Directories="%(NUnitRunner.RootDir)%(NUnitRunner.Directory)addins"/>
+    <Copy SourceFiles="@(NUnitAddinFiles)" DestinationFolder="%(NUnitRunner.RootDir)%(NUnitRunner.Directory)addins" SkipUnchangedFiles="true"/>
+  </Target>
+</Project>
